@@ -91,6 +91,8 @@ const Post = ({
     } catch (e) {}
   };
 
+  console.log(files);
+
   return (
     <Container>
       <Header>

@@ -41,10 +41,6 @@ const SearchPresenter = ({ term, shouldFetch }) => {
     }
   };
 
-  if(!loading) {
-    console.log(data);
-  }
-
   return (
     <ScrollView
       refreshControl={

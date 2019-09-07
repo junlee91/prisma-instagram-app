@@ -3,9 +3,16 @@ import { ScrollView, RefreshControl } from "react-native";
 import { useQuery } from "react-apollo-hooks";
 import { gql } from "apollo-boost";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 import Loader from "../../../components/Loader";
 import SquarePhoto from "../../../components/SquarePhoto";
+
+const GridWrapper = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
 export const SEARCH = gql`
   query search($term: String!) {
@@ -47,13 +54,15 @@ const SearchPresenter = ({ term, shouldFetch }) => {
         <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
       }
     >
-      {loading ? (
-        <Loader />
-      ) : (
-        data &&
-        data.searchPost &&
-        data.searchPost.map(post => <SquarePhoto key={post.id} {...post} />)
-      )}
+      <GridWrapper>
+        {loading ? (
+          <Loader />
+        ) : (
+          data &&
+          data.searchPost &&
+          data.searchPost.map(post => <SquarePhoto key={post.id} {...post} />)
+        )}
+      </GridWrapper>
     </ScrollView>
   );
 };

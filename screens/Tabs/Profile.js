@@ -1,16 +1,29 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import { ScrollView } from "react-native";
+import { gql } from "apollo-boost";
 
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
+import { USER_FRAGMENT } from "../../fragments";
+import Loader from "../../components/Loader";
+import { useQuery } from "react-apollo-hooks";
+import UserProfile from "../../components/UserProfile";
+
+export const ME = gql`
+  {
+    me {
+      ...UserParts
+    }
+  }
+  ${USER_FRAGMENT}
 `;
 
-const Text = styled.Text``;
+export default ({ navigation }) => {
+  const { loading, data } = useQuery(ME);
 
-export default () => (
-  <View>
-    <Text>Profile</Text>
-  </View>
-);
+  console.log(data);
+
+  return (
+    <ScrollView>
+      {loading ? <Loader /> : data && data.me && <UserProfile {...data.me} />}
+    </ScrollView>
+  );
+};

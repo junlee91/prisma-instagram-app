@@ -19,7 +19,9 @@ export default () => {
   const [allPhotos, setAllPhotos] = useState();
   const getPhotos = async () => {
     try {
-      const { assets } = await MediaLibrary.getAssetsAsync();
+      const { assets } = await MediaLibrary.getAssetsAsync({
+        sortBy: [[MediaLibrary.SortBy.creationTime, false]]
+      });
       const [firstPhoto] = assets;
       setSelected(firstPhoto);
       setAllPhotos(assets);

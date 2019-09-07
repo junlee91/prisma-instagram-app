@@ -10,6 +10,7 @@ import Search from "../screens/Tabs/Search";
 import Notifications from "../screens/Tabs/Notifications";
 import Profile from "../screens/Tabs/Profile";
 import Detail from "../screens/Detail";
+import UserDetail from "../screens/UserDetail";
 
 import MessagesLink from "../components/MessagesLink";
 import NavIcon from "../components/NavIcon";
@@ -31,10 +32,18 @@ const stackFactory = (initialRoute, customConfig) =>
           headerTintColor: styles.blackColor,
           title: "Photo"
         }
+      },
+      UserDetail: {
+        screen: UserDetail,
+        navigationOptions: {
+          title: "User"
+        }
       }
     },
     {
       defaultNavigationOptions: {
+        headerBackTitle: null,
+        headerTintColor: styles.blackColor,
         headerStyle: { ...stackStyles }
       }
     }

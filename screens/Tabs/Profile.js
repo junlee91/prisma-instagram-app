@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { ScrollView } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, RefreshControl } from "react-native";
 import { gql } from "apollo-boost";
 
 import { USER_FRAGMENT } from "../../fragments";
@@ -17,12 +17,25 @@ export const ME = gql`
 `;
 
 export default ({ navigation }) => {
-  const { loading, data } = useQuery(ME);
+  const { loading, data, refetch } = useQuery(ME);
+  const [refreshing, setRefreshing] = useState(false);
 
-  console.log(data);
+  const onRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await refetch();
+    } catch (e) {
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+      }
+    >
       {loading ? <Loader /> : data && data.me && <UserProfile {...data.me} />}
     </ScrollView>
   );

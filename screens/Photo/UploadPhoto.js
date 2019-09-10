@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Image, ActivityIndicator, Alert } from "react-native";
+import axios from "axios";
 import styled from "styled-components";
 
 import useInput from "../../hooks/useInput";
@@ -15,7 +16,6 @@ const Container = styled.View`
   padding: 20px;
   flex-direction: row;
 `;
-
 
 const Form = styled.View`
   justify-content: flex-start;
@@ -45,18 +45,40 @@ const Text = styled.Text`
 export default ({ navigation }) => {
   const [loading, setIsLoading] = useState(false);
   const [fileUrl, setFileUrl] = useState("");
-  const captionInput = useInput("");
-  const locationInput = useInput("");
+  const photo = navigation.getParam("photo");
+  const captionInput = useInput("dfdf");
+  const locationInput = useInput("dfdfd");
   const handleSubmit = async () => {
     if (captionInput.value === "" || locationInput.value === "") {
       Alert.alert("All fields are required");
+    }
+    const formData = new FormData();
+    const name = photo.filename;
+    const [, type] = name.split(".");
+
+    formData.append("file", {
+      name,
+      type: type.toLowerCase(),
+      uri: photo.uri
+    });
+    try {
+      const {
+        data: { path }
+      } = await axios.post("http://localhost:4000/api/upload", formData, {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      });
+      setFileUrl(path);
+    } catch (e) {
+      Alert.alert("Cant upload", "Try later");
     }
   };
   return (
     <View>
       <Container>
         <Image
-          source={{ uri: navigation.getParam("photo").uri }}
+          source={{ uri: photo.uri }}
           style={{ height: 80, width: 80, marginRight: 30 }}
         />
         <Form>

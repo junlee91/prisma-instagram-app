@@ -8,6 +8,7 @@
 <img src="./images/photo.gif" width="200" />
 
 ### Made with
+- [Expo](https://expo.io/)
 - [React Native](https://facebook.github.io/react-native/)
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 - [GraphQL - Apollo](https://www.apollographql.com/)

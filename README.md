@@ -1,11 +1,7 @@
 # Instagram clone
-<img src="./images/video_1.gif" width="200" />
+<img src="./images/video_1.gif" width="200" /> <img src="./images/video_2.gif" width="200" />
 
-<img src="./images/video_2.gif" width="200" />
-
-<img src="./images/video_3.gif" width="200" />
-
-<img src="./images/photo.gif" width="200" />
+<img src="./images/video_3.gif" width="200" /> <img src="./images/photo.gif" width="200" />
 
 ### Made with
 - [Expo](https://expo.io/)
